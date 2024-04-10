@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Drayeasy\MonoLarkLogger\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class MonoLarkLoggerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'mono-lark-logger';
 
     public $description = 'My command';
 
