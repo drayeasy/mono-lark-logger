@@ -25,7 +25,7 @@ class LoadServiceProvider extends PackageServiceProvider
         ], 'logging');
 
         $this->publishes([
-            __DIR__ . '/MonoLarkLoggerServiceProvider.php' => app_path('Providers'),
+            __DIR__ . '/MonoLarkLoggerServiceProvider.php' => app_path('Providers') . "/MonoLarkLoggerServiceProvider.php",
         ], 'providers');
 
     }
