@@ -1,31 +1,20 @@
 <?php
 
-namespace Drayeasy\MonoLarkLogger;
+namespace App\Providers;
 
-use Illuminate\Support\Facades\Config;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class MonoLarkLoggerServiceProvider extends PackageServiceProvider
+class MonoLarkLoggerServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register(): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('mono-lark-logger');
+
     }
 
-    public function packageBooted()
-    {
-        $this->publishes([
-            __DIR__ . '/Logging' => app_path('Logging'),
-        ], 'logging');
 
-        Config::set('logging.channels.lark', [
+    public function boot(): void
+    {
+        $this->app['config']->set('logging.channels.lark', [
             'driver' => 'custom',
             'via' => \App\Logging\CreateLarkLogger::class,
             'level' => env('LARK_LOG_LEVEL', 'alert'),
@@ -34,6 +23,5 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
             'larkAppReceiveId' => env('LARK_APP_RECEIVE_ID'),
             'larkAppReceiveType' => env('LARK_APP_RECEIVE_TYPE'),
         ]);
-
     }
 }
