@@ -2,7 +2,6 @@
 
 namespace Drayeasy\MonoLarkLogger;
 
-use Illuminate\Support\Facades\File;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -22,26 +21,22 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
     public function packageBooted()
     {
         $this->publishes([
-            __DIR__ . '../config/lark.php' => config_path('lark.php'),
-        ], 'config');
-
-        $this->publishes([
-            __DIR__ . 'Logging' => app_path('Logging'),
+            __DIR__ . '/Logging' => app_path('Logging'),
         ], 'logging');
 
-        if (File::exists(config_path('logging.php'))) {
-            $loggingConfig = require config_path('logging.php');
+        // $this->mergeConfigFrom(
+        //     __DIR__ . '/../config/lark.php',
+        //     'logging'
+        // );
 
-            $loggingConfig['channels']['lark'] = [
-                'driver' => 'custom',
-                'via' => \App\Logging\CreateLarkLogger::class,
-                'level' => env('LOG_LEVEL', 'alert'),
-                'larkAppId' => env('LARK_APP_ID'),
-                'LarkAppSecret' => env('LARK_APP_SECRET'),
-                'LarkAppReceiveId' => env('LARK_APP_RECEIVE_ID'),
-                'LarkAppReceiveType' => env('LARK_APP_RECEIVE_TYPE'),
-            ];
-            File::put(config_path('logging.php'), '<?php return ' . var_export($loggingConfig, true) . ';');
-        }
+        $this->app['config']->set('logging.channels.lark', [
+            'driver' => 'custom',
+            'via' => \App\Logging\CreateLarkLogger::class,
+            'level' => env('LOG_LEVEL', 'alert'),
+            'larkAppId' => env('LARK_APP_ID'),
+            'LarkAppSecret' => env('LARK_APP_SECRET'),
+            'LarkAppReceiveId' => env('LARK_APP_RECEIVE_ID'),
+            'LarkAppReceiveType' => env('LARK_APP_RECEIVE_TYPE'),
+        ]);
     }
 }

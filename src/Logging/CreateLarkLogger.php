@@ -30,7 +30,7 @@ class CreateLarkLogger
             new LarkHandler(
                 $config["larkAppReceiveId"],
                 $config["larkAppReceiveType"],
-                Logger::getLevelName($config['level'] ?? Level::Alert)
+                Logger::toMonologLevel($config['level'] ?? Level::Alert)
             )
         );
         return $logger;
