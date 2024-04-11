@@ -25,7 +25,7 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
         ], 'logging');
 
         $this->publishes([
-            __DIR__ . 'stubs/MonoLarkLoggerServiceProvider.stub' => app_path('Providers') . "/MonoLarkLoggerServiceProvider.php",
+            __DIR__ . '/stubs/MonoLarkLoggerServiceProvider.stub' => app_path('Providers//MonoLarkLoggerServiceProvider.php'),
         ], 'providers');
 
     }
