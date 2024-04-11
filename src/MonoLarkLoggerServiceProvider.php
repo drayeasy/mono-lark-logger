@@ -5,7 +5,7 @@ namespace Drayeasy\MonoLarkLogger;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LoadServiceProvider extends PackageServiceProvider
+class MonoLarkLoggerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
