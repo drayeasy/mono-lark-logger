@@ -8,9 +8,9 @@ return [
             'via' => \App\Logging\CreateLarkLogger::class,
             'level' => env('LARK_LOG_LEVEL', 'alert'),
             'larkAppId' => env('LARK_APP_ID'),
-            'LarkAppSecret' => env('LARK_APP_SECRET'),
-            'LarkAppReceiveId' => env('LARK_APP_RECEIVE_ID'),
-            'LarkAppReceiveType' => env('LARK_APP_RECEIVE_TYPE'),
+            'larkAppSecret' => env('LARK_APP_SECRET'),
+            'larkAppReceiveId' => env('LARK_APP_RECEIVE_ID'),
+            'larkAppReceiveType' => env('LARK_APP_RECEIVE_TYPE'),
         ],
     ],
 ];
