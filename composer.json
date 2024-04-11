@@ -47,8 +47,6 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "post-install-cmd": "php vendor/drayeasy/mono-lark-logger/scripts/auto-register-provider.php",
-        "post-update-cmd": "php vendor/drayeasy/mono-lark-logger/scripts/auto-register-provider.php",
         "clear": "@php vendor/bin/testbench package:purge-mono-lark-logger --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [

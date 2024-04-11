@@ -2,6 +2,7 @@
 
 namespace Drayeasy\MonoLarkLogger;
 
+use Drayeasy\MonoLarkLogger\Commands\MonoLarkLoggerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -15,7 +16,8 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('mono-lark-logger');
+            ->name('mono-lark-logger')
+            ->hasCommand(MonoLarkLoggerCommand::class);
     }
 
     public function packageBooted()
@@ -25,7 +27,7 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
         ], 'logging');
 
         $this->publishes([
-            __DIR__ . '/stubs/MonoLarkLoggerServiceProvider.stub' => app_path('Providers//MonoLarkLoggerServiceProvider.php'),
+            __DIR__ . '/../stubs/MonoLarkLoggerServiceProvider.stub' => app_path('Providers/MonoLarkLoggerServiceProvider.php'),
         ], 'providers');
 
     }
