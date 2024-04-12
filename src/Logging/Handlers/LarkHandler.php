@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Logging\Handlers;
+namespace Logging\Handlers;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;

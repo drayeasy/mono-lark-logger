@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Logging\Processors;
+namespace Logging\Processors;
 
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\Facades\Cache;
@@ -46,8 +46,6 @@ class LarkTokenProcessor implements ProcessorInterface
 
   public function __invoke(LogRecord $record): LogRecord
   {
-    $context = $record->context;
-
     $token = Cache::get('lark_tenant_access_token');
     if (!$token) {
       $response = Http::post('https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal', [
