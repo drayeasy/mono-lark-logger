@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Logging\Processors;
+namespace Drayeasy\MonoLarkLogger\Logging\Processors;
 
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\Facades\Cache;
