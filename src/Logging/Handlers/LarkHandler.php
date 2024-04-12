@@ -13,11 +13,10 @@ namespace Drayeasy\MonoLarkLogger\Logging\Handlers;
 
 use Drayeasy\MonoLarkLogger\Facades\HttpClient;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Handler\Curl\Util;
-use Monolog\Handler\MissingExtensionException;
 use Monolog\Level;
 use Monolog\LogRecord;
 use Monolog\Utils;
+use Psy\Exception\RuntimeException;
 
 /**
  * Sends notifications through Slack API
@@ -51,9 +50,12 @@ class LarkHandler extends AbstractProcessingHandler
       ])
     ];
 
-    HttpClient::withHeaders([
+    $response = HttpClient::withHeaders([
       'Authorization' => 'Bearer ' . $record->extra["lark_tenant_access_token"]
     ])->post('/im/v1/messages?receive_id_type=' . $this->receiveType, $postData);
 
+    if ($response->json()['code'] !== 0) {
+      throw new RuntimeException('App id or secret is wrong.');
+    }
   }
 }

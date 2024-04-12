@@ -52,10 +52,10 @@ class LarkTokenProcessor implements ProcessorInterface
         'app_id' => $this->larkAppId,
         'app_secret' => $this->larkAppSecret,
       ]);
-      if ($response['code'] !== 0) {
+      if ($response->json()['code'] !== 0) {
         throw new MissingAppKeyException('App id or secret is wrong.');
       }
-      $token = $response['tenant_access_token'];
+      $token = $response->json()['tenant_access_token'];
       Cache::put('lark_tenant_access_token', $token, 6400);
     }
 

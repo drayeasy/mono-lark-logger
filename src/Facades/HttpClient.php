@@ -23,6 +23,6 @@ class HttpClient extends Facade
             Cache::forget('lark_tenant_access_token');
             return true;
           }
-        })->json();
+        });
   }
 }
