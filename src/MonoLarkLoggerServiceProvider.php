@@ -2,13 +2,12 @@
 
 namespace Drayeasy\MonoLarkLogger;
 
-use Drayeasy\MonoLarkLogger\Logging\Handlers\LarkHandler;
-use Drayeasy\MonoLarkLogger\Logging\Processors\LarkTokenProcessor;
 use Illuminate\Support\Facades\Log;
-
 use Monolog\Logger as Monolog;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Drayeasy\MonoLarkLogger\Logging\Handlers\LarkHandler;
+use Drayeasy\MonoLarkLogger\Logging\Processors\LarkTokenProcessor;
 
 class MonoLarkLoggerServiceProvider extends PackageServiceProvider
 {
