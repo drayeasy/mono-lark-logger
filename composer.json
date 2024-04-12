@@ -75,7 +75,10 @@
         "laravel": {
             "providers": [
                 "Drayeasy\\MonoLarkLogger\\MonoLarkLoggerServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "HttpClient": "Drayeasy\\MonoLarkLogger\\Facades\\HttpClient"
+            }
         }
     },
     "minimum-stability": "dev",

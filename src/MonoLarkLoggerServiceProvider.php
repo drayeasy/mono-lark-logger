@@ -2,6 +2,7 @@
 
 namespace Drayeasy\MonoLarkLogger;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Monolog\Logger as Monolog;
 use Spatie\LaravelPackageTools\Package;
@@ -24,6 +25,12 @@ class MonoLarkLoggerServiceProvider extends PackageServiceProvider
 
   public function packageBooted()
   {
+    Http::macro('lark', function () {
+      return Http::withHeaders([
+        'Content-Type' => 'application/json; charset=utf-8',
+      ])->baseUrl('https://open.larksuite.com/open-apis');
+    });
+
     Log::extend('lark', function ($app, array $config) {
       return new Monolog("lark", [
         new LarkHandler(

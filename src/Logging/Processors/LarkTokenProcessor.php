@@ -11,9 +11,9 @@
 
 namespace Drayeasy\MonoLarkLogger\Logging\Processors;
 
+use Drayeasy\MonoLarkLogger\Facades\HttpClient;
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
@@ -48,7 +48,7 @@ class LarkTokenProcessor implements ProcessorInterface
   {
     $token = Cache::get('lark_tenant_access_token');
     if (!$token) {
-      $response = Http::post('https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal', [
+      $response = HttpClient::post('/auth/v3/tenant_access_token/internal', [
         'app_id' => $this->larkAppId,
         'app_secret' => $this->larkAppSecret,
       ]);

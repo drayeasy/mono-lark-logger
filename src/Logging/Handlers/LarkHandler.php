@@ -11,6 +11,7 @@
 
 namespace Drayeasy\MonoLarkLogger\Logging\Handlers;
 
+use Drayeasy\MonoLarkLogger\Facades\HttpClient;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
 use Monolog\Handler\MissingExtensionException;
@@ -31,9 +32,6 @@ class LarkHandler extends AbstractProcessingHandler
 
   public function __construct(string $receiveID, string $receiveType, int|string|Level $level = Level::Error, bool $bubble = true)
   {
-    if (!extension_loaded('curl')) {
-      throw new MissingExtensionException('The curl extension is needed to use the LarkHandler');
-    }
     $this->receiveID = $receiveID;
     $this->receiveType = $receiveType;
 
@@ -52,19 +50,10 @@ class LarkHandler extends AbstractProcessingHandler
         "text" => $record->message
       ])
     ];
-    $postString = Utils::jsonEncode($postData);
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://open.larksuite.com/open-apis/im/v1/messages?receive_id_type=" . $this->receiveType);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-      "Authorization: Bearer " . $record->extra["lark_tenant_access_token"],
-      "Content-Type: application/json; charset=utf-8"
-    ]);
 
-    $res = Util::execute($ch);
+    HttpClient::withHeaders([
+      'Authorization' => 'Bearer ' . $record->extra["lark_tenant_access_token"]
+    ])->post('/im/v1/messages?receive_id_type=' . $this->receiveType, $postData);
 
-    curl_close($ch);
   }
 }
